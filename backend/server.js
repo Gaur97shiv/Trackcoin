@@ -9,11 +9,12 @@ const app = express();
 app.use(cookieParser());
 app.use(cors(
   {
-    origin:["https://deploy-mern-1whq.vercel.app"]
-      method:["POST","GET"],
-  credentials:true
-}
+    origin: ["https://deploy-mern-1whq.vercel.app"],
+    method: ["POST", "GET"],
+    credentials: true
+  }
 ));
+
 app.use(express.json({ limit: "50mb" }));
 app.use(router);
 dbConnect();
