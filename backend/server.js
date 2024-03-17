@@ -9,7 +9,7 @@ const app = express();
 app.use(cookieParser());
 app.use(cors(
   {
-    origin: ["https://deploy-mern-1whq.vercel.app"],
+    origin: [" "],
     method: ["POST", "GET"],
     credentials: true
   }
