@@ -10,7 +10,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "*", // Allow requests from any origin
+  origin: "https://trackcoin-zeta.vercel.app/", // Allow requests from any origin
   methods: ["POST", "GET"], // Allow the specified methods
   credentials: true
 }));
