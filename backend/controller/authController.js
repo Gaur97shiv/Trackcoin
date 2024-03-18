@@ -27,7 +27,7 @@ const authController = {
       const emailInUse = await User.exists({ email });
 
       const usernameInUse = await User.exists({ username });
-
+console.log(emailInUse);
       if (emailInUse) {
         const error = {
           status: 409,
@@ -96,7 +96,9 @@ const authController = {
     const userLoginSchema = Joi.object({
       username: Joi.string().min(5).max(30).required(),
       password: Joi.string().pattern(passwordPattern),
+   
     });
+    console.log(userLoginSchema);
 
     const { error } = userLoginSchema.validate(req.body);
 
