@@ -10,7 +10,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "http://localhost:3000", // Specify the origin of your frontend
+  origin: "*", 
   methods: ["POST", "GET"],
   credentials: true
 }));
