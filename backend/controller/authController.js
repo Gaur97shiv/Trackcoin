@@ -27,7 +27,6 @@ const authController = {
       const emailInUse = await User.exists({ email });
 
       const usernameInUse = await User.exists({ username });
-console.log(emailInUse);
       if (emailInUse) {
         const error = {
           status: 409,

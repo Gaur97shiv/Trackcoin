@@ -1,6 +1,7 @@
 import axios from "axios";
 const api = axios.create({
   baseURL: process.env.REACT_APP_INTERNAL_API_PATH,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
@@ -75,8 +76,9 @@ export const getBlogById = async (id) => {
   return response;
 };
 
-export const getCommentsById = async(id) => {
+export const getCommentsById = async (id) => {
   let response;
+
   try {
     response = await api.get(`/comment/${id}`, {
       validateStatus: false,
@@ -120,19 +122,27 @@ export const updateBlog = async (data) => {
   return response;
 };
 
+// auto token refresh
 
+// /protected-resource -> 401
+// /refresh -> authenthicated state
+// /protected-resource
 
 api.interceptors.response.use(
   (config) => config,
   async (error) => {
     const originalReq = error.config;
 
+    // extract the value of message from json response if it exists
+    const errorMessage = error.response && error.response.data && error.response.data.message;
+
     if (
-      (error.response.status === 401 || error.response.status === 500) &&
-      originalReq &&
-      !originalReq._isRetry
+      errorMessage === 'Unauthorized' &&
+			(error.response.status === 401 || error.response.status === 500) &&
+			originalReq &&
+			!originalReq._isRetry
     ) {
-      originalReq.isRetry = true;
+      originalReq._isRetry = true;
 
       try {
         await axios.get(`${process.env.REACT_APP_INTERNAL_API_PATH}/refresh`, {
@@ -144,5 +154,6 @@ api.interceptors.response.use(
         return error;
       }
     }
+    throw error;
   }
 );

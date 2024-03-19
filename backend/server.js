@@ -10,10 +10,11 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "*", 
-  methods: ["POST", "GET"], 
+  origin: "http://localhost:3000", // Specify the origin of your frontend
+  methods: ["POST", "GET"],
   credentials: true
 }));
+
 
 app.use(express.json({ limit: "50mb" }));
 app.use(router);

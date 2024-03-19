@@ -3,7 +3,7 @@ const authController = require('../controller/authController');
 const blogController = require('../controller/blogController');
 const commentController = require('../controller/commentController');
 const auth = require('../middlewares/auth');
-
+console.log(auth);
 const router = express.Router();
 
 // user
